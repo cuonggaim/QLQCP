@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,24 @@ namespace QuanLyQuanCafe
             InitializeComponent();
 
             LoadTable();
+
+            LoadCategory();
         }
 
         #region Method
+        void LoadCategory()
+        {
+            List<Category> listCategory = CategoryDAO.Instance.GetListCategory();
+            cbCategory.DataSource = listCategory;
+            cbCategory.DisplayMember = "Name";
+        }
+
+        void LoadDrinkListByCategoryID(int id)
+        {
+            List<Drink> listDrink = DrinkDAO.Instance.GetDrinkByCategoryID(id);
+            cbDrink.DataSource = listDrink;
+            cbDrink.DisplayMember = "Name";
+        }
         void LoadTable()
         {
             List<Table> tableList = TableDAO.Instance.LoadTableList();
@@ -61,6 +77,11 @@ namespace QuanLyQuanCafe
                 totalPrice += item.TotalPrice;
                 lsvBill.Items.Add(lsvItem);
             }
+            CultureInfo culture = new CultureInfo("vi-VN");
+
+            //Thread.CurrentThread.CurrentCulture = culture;
+
+            txbTotalPrice.Text = totalPrice.ToString("c", culture);
         }
 
         #endregion
@@ -70,6 +91,7 @@ namespace QuanLyQuanCafe
         void btn_Click(object sender, EventArgs e)
         {
             int tableID = ((sender as Button).Tag as Table).ID;
+            lsvBill.Tag = (sender as Button).Tag;
             ShowBill(tableID);
         }
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,7 +123,17 @@ namespace QuanLyQuanCafe
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int id = 0;
 
+            ComboBox cb = sender as ComboBox;
+
+            if (cb.SelectedItem == null)
+                return;
+
+            Category selected = cb.SelectedItem as Category;
+            id = selected.ID;
+
+            LoadDrinkListByCategoryID(id);
         }
 
         private void UserInfo_Click(object sender, EventArgs e)
@@ -119,6 +151,27 @@ namespace QuanLyQuanCafe
         {
             fAdmin f = new fAdmin();
             f.ShowDialog();
+        }
+
+        private void btnAddDrink_Click(object sender, EventArgs e)
+        {
+            Table table = lsvBill.Tag as Table;
+
+            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
+            int drinkID = (cbDrink.SelectedItem as Drink).ID;
+            int count = (int)nmDrinkCount.Value;
+
+            if (idBill == -1)
+            {
+                BillDAO.Instance.InsertBill(table.ID);
+                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxIDBill(), drinkID, count);
+            }
+            else
+            {
+                BillInfoDAO.Instance.InsertBillInfo(idBill, drinkID, count);
+            }
+
+            ShowBill(table.ID);
         }
     }
 }

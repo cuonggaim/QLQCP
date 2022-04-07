@@ -36,6 +36,10 @@ namespace QuanLyQuanCafe
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lsvBill = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.panel3 = new System.Windows.Forms.Panel();
             this.nmDiscount = new System.Windows.Forms.NumericUpDown();
             this.cbSwitchTable = new System.Windows.Forms.ComboBox();
@@ -48,10 +52,7 @@ namespace QuanLyQuanCafe
             this.cbDrink = new System.Windows.Forms.ComboBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.flpTable = new System.Windows.Forms.FlowLayoutPanel();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.txbTotalPrice = new System.Windows.Forms.TextBox();
             this.Menu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -132,8 +133,25 @@ namespace QuanLyQuanCafe
             this.lsvBill.UseCompatibleStateImageBehavior = false;
             this.lsvBill.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Tên món";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Số lượng";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Đơn giá";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Thành tiền";
+            // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txbTotalPrice);
             this.panel3.Controls.Add(this.nmDiscount);
             this.panel3.Controls.Add(this.cbSwitchTable);
             this.panel3.Controls.Add(this.btnSwitchTable);
@@ -149,7 +167,7 @@ namespace QuanLyQuanCafe
             this.nmDiscount.BackColor = System.Drawing.Color.White;
             this.nmDiscount.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.nmDiscount.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.nmDiscount.Location = new System.Drawing.Point(242, 32);
+            this.nmDiscount.Location = new System.Drawing.Point(119, 33);
             this.nmDiscount.Minimum = new decimal(new int[] {
             100,
             0,
@@ -186,7 +204,7 @@ namespace QuanLyQuanCafe
             this.btnDiscount.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnDiscount.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnDiscount.ForeColor = System.Drawing.Color.White;
-            this.btnDiscount.Location = new System.Drawing.Point(242, 2);
+            this.btnDiscount.Location = new System.Drawing.Point(119, 3);
             this.btnDiscount.Name = "btnDiscount";
             this.btnDiscount.Size = new System.Drawing.Size(94, 27);
             this.btnDiscount.TabIndex = 1;
@@ -248,6 +266,7 @@ namespace QuanLyQuanCafe
             this.btnAddDrink.TabIndex = 1;
             this.btnAddDrink.Text = "Thêm món";
             this.btnAddDrink.UseVisualStyleBackColor = false;
+            this.btnAddDrink.Click += new System.EventHandler(this.btnAddDrink_Click);
             // 
             // cbDrink
             // 
@@ -274,21 +293,13 @@ namespace QuanLyQuanCafe
             this.flpTable.Size = new System.Drawing.Size(629, 540);
             this.flpTable.TabIndex = 5;
             // 
-            // columnHeader1
+            // txbTotalPrice
             // 
-            this.columnHeader1.Text = "Tên món";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Số lượng";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Đơn giá";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Thành tiền";
+            this.txbTotalPrice.Location = new System.Drawing.Point(219, 18);
+            this.txbTotalPrice.Name = "txbTotalPrice";
+            this.txbTotalPrice.Size = new System.Drawing.Size(117, 23);
+            this.txbTotalPrice.TabIndex = 3;
+            this.txbTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // fTableManager
             // 
@@ -309,6 +320,7 @@ namespace QuanLyQuanCafe
             this.Menu.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmDiscount)).EndInit();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nmDrinkCount)).EndInit();
@@ -341,5 +353,6 @@ namespace QuanLyQuanCafe
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TextBox txbTotalPrice;
     }
 }

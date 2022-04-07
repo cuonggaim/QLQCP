@@ -18,10 +18,10 @@ namespace QuanLyQuanCafe.DAO
             private set { DataProvider.instance = value; }
         }
 
-        private DataProvider() { }
+        private DataProvider(){}
 
         private string connectionSTR = "Data Source=.\\sqlexpress;Initial Catalog=QuanLyQuanCafe;Integrated Security=True";
-
+        
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
@@ -31,7 +31,7 @@ namespace QuanLyQuanCafe.DAO
                 connection.Open();
 
                 SqlCommand command = new SqlCommand(query, connection);
-
+                
                 if (parameter != null)
                 {
                     string[] listPara = query.Split(' ');
@@ -45,7 +45,7 @@ namespace QuanLyQuanCafe.DAO
                         }
                     }
                 }
-
+                
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
 
                 adapter.Fill(data);
@@ -121,4 +121,3 @@ namespace QuanLyQuanCafe.DAO
         }
     }
 }
-
